@@ -1,0 +1,22 @@
+{
+  "overview": "Crazy Bot 4.0 is a web chat app powered by the Groq LLM API with Wikipedia fallback. Each device gets its own isolated chat history. API keys are secured in the backend and never exposed to users.",
+  "features": [
+    "Multi-screen app: Splash, Info, Chat, Settings, Help",
+    "IP-based device isolation for chat history",
+    "Groq LLM API integration with 4-key rotation",
+    "Wikipedia fallback when bot doesn't know the answer",
+    "Custom bot and user avatars matching original Kivy design",
+    "Per-device settings: name, font size, chat background color",
+    "Secure backend API key proxying"
+  ],
+  "category": "productivity",
+  "tags": [
+    "chat",
+    "ai",
+    "groq",
+    "bot",
+    "messaging",
+    "llm"
+  ],
+  "last_updated": "2026-04-10T09:53:51.385Z"
+}

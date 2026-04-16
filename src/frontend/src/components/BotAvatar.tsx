@@ -1,0 +1,73 @@
+export function BotAvatar() {
+  return (
+    <svg
+      width="56"
+      height="56"
+      viewBox="0 0 56 56"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Crazy Bot avatar"
+      className="flex-shrink-0"
+    >
+      <title>Crazy Bot</title>
+      {/* Dark outer rounded square */}
+      <rect width="56" height="56" rx="14" fill="#292D38" />
+
+      {/* Inner light square */}
+      <rect x="7" y="7" width="42" height="42" rx="10" fill="#EBF1FF" />
+
+      {/* Antenna stick */}
+      <line
+        x1="28"
+        y1="7"
+        x2="28"
+        y2="1"
+        stroke="#292D38"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+
+      {/* Antenna circle */}
+      <circle
+        cx="28"
+        cy="0"
+        r="3"
+        stroke="#1270D4"
+        strokeWidth="1.5"
+        fill="none"
+      />
+
+      {/* Left eye */}
+      <circle
+        cx="20"
+        cy="24"
+        r="3.5"
+        stroke="#1270D4"
+        strokeWidth="1.8"
+        fill="none"
+      />
+
+      {/* Right eye */}
+      <circle
+        cx="36"
+        cy="24"
+        r="3.5"
+        stroke="#1270D4"
+        strokeWidth="1.8"
+        fill="none"
+      />
+
+      {/* Mouth */}
+      <line
+        x1="21"
+        y1="36"
+        x2="35"
+        y2="36"
+        stroke="#333333"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}

@@ -1,0 +1,58 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type UserAnalytics = 
+ record {
+   chatCount: nat;
+   city: text;
+   country: text;
+   deviceType: text;
+   imageCount: nat;
+   ip: text;
+   lastSeen: int;
+ };
+type Timestamp = int;
+type MessageId = text;
+type DeviceSettingsInput = 
+ record {
+   bgColor: text;
+   fontSize: nat;
+   userName: text;
+ };
+type DeviceSettings = 
+ record {
+   bgColor: text;
+   fontSize: nat;
+   userName: text;
+ };
+type DeviceId = text;
+type ChatMessage = 
+ record {
+   id: MessageId;
+   isUser: bool;
+   sender: text;
+   "text": text;
+   timestamp: Timestamp;
+ };
+service : {
+  clearHistory: (deviceId: DeviceId) -> ();
+  getAllUserAnalytics: () -> (vec UserAnalytics) query;
+  getHistory: (deviceId: DeviceId) -> (vec ChatMessage) query;
+  getSettings: (deviceId: DeviceId) -> (DeviceSettings) query;
+  saveSettings: (deviceId: DeviceId, settings: DeviceSettingsInput) -> ();
+  sendMessage: (deviceId: DeviceId, message: text, chatMode: text) -> (text);
+  trackUser: (ip: text, deviceType: text, country: text, city: text,
+   isImageGen: bool) -> ();
+  transform: (raw: record {
+                     context: blob;
+                     response: http_request_result;
+                   }) -> (http_request_result) query;
+}

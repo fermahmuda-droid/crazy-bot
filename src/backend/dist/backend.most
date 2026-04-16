@@ -1,0 +1,62 @@
+// Version: 1.0.0
+type ChatMessage__559859432 =
+  {
+    id : MessageId__291319400;
+    isUser : Bool;
+    sender : Text;
+    text : Text;
+    timestamp : Timestamp__301639476
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type DeviceId__795919761 = Text;
+type DeviceSettings__541003488 =
+  {bgColor : Text; fontSize : Nat; userName : Text};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type MessageId__291319400 = Text;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type Timestamp__301639476 = Int;
+type UserAnalytics__672681751 =
+  {
+    chatCount : Nat;
+    city : Text;
+    country : Text;
+    deviceType : Text;
+    imageCount : Nat;
+    ip : Text;
+    lastSeen : Int
+  };
+actor {
+  stable chatHistory :
+    {
+      var root :
+        Node__46230540<DeviceId__795919761,
+                        List__415060402<ChatMessage__559859432>>;
+      var size : Nat__490723111
+    };
+  stable deviceSettings :
+    {
+      var root :
+        Node__46230540<DeviceId__795919761, DeviceSettings__541003488>;
+      var size : Nat__490723111
+    };
+  stable fallbackMessages : [Text];
+  stable keyIndex : Nat;
+  stable userAnalytics :
+    {
+      var root : Node__46230540<Text, UserAnalytics__672681751>;
+      var size : Nat__490723111
+    }
+};
