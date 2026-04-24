@@ -144,6 +144,8 @@ export function SettingsScreen({
       setShowAdminDialog(false);
       setAdminPwInput("");
       setAdminPwError("");
+      // Mark admin as unlocked so maintenance/block checks are bypassed
+      localStorage.setItem("crazybot_admin_unlocked", "true");
       onAdmin();
     } else {
       setAdminPwError("Incorrect password");
@@ -164,7 +166,21 @@ export function SettingsScreen({
           aria-label="Go back"
           data-ocid="settings-back-btn"
         >
-          ‹
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M15 18l-6-6 6-6"
+              stroke="#1270D4"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
         <h1 className="text-xl font-bold text-[#1A1A1A]">Settings</h1>
       </div>
@@ -288,7 +304,23 @@ export function SettingsScreen({
                   className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#EAFAF1]"
                   data-ocid="puter-signed-in-status"
                 >
-                  <span className="text-[#27AE60] font-bold text-base">✓</span>
+                  <span className="text-[#27AE60] font-bold text-base flex items-center">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M20 6L9 17l-5-5"
+                        stroke="#27AE60"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
                   <span className="text-[#27AE60] text-sm font-semibold">
                     Puter: Signed in
                   </span>
@@ -347,7 +379,21 @@ export function SettingsScreen({
                 </>
               ) : cleared ? (
                 <>
-                  <span className="text-[#27AE60] font-bold">✓</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M20 6L9 17l-5-5"
+                      stroke="#27AE60"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                   <span className="text-[#27AE60]">History Cleared</span>
                 </>
               ) : (
@@ -409,9 +455,40 @@ export function SettingsScreen({
           >
             <div className="px-6 pt-6 pb-3 flex flex-col gap-2">
               <div className="w-12 h-12 rounded-full bg-[#FFF0F0] flex items-center justify-center mb-1 mx-auto">
-                <span className="text-2xl" aria-hidden="true">
-                  🗑️
-                </span>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <polyline
+                    points="3 6 5 6 21 6"
+                    stroke="#CC3333"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M19 6l-1 14H6L5 6"
+                    stroke="#CC3333"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M10 11v6M14 11v6"
+                    stroke="#CC3333"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M9 6V4h6v2"
+                    stroke="#CC3333"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
               <h2
                 id="confirm-dialog-title"
@@ -473,9 +550,29 @@ export function SettingsScreen({
           >
             <div className="px-6 pt-6 pb-3 flex flex-col gap-3">
               <div className="w-12 h-12 rounded-full bg-[#EBF1FF] flex items-center justify-center mb-1 mx-auto">
-                <span className="text-2xl" aria-hidden="true">
-                  🔐
-                </span>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <rect
+                    x="3"
+                    y="11"
+                    width="18"
+                    height="11"
+                    rx="2"
+                    stroke="#1270D4"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M7 11V7a5 5 0 0110 0v4"
+                    stroke="#1270D4"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
               </div>
               <h2
                 id="admin-dialog-title"

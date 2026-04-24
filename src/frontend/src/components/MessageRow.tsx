@@ -1,8 +1,6 @@
 import { useRef, useState } from "react";
 import type { ReplyTo } from "../types";
-import { BotAvatar } from "./BotAvatar";
 import { ChatBubble } from "./ChatBubble";
-import { UserAvatar } from "./UserAvatar";
 
 interface MessageRowProps {
   senderName: string;
@@ -12,6 +10,7 @@ interface MessageRowProps {
   replyTo?: ReplyTo;
   onReply?: (text: string) => void;
   imageUrl?: string;
+  isVideo?: boolean;
   isImageGenerating?: boolean;
   onImageClick?: (url: string) => void;
 }
@@ -26,6 +25,7 @@ export function MessageRow({
   replyTo,
   onReply,
   imageUrl,
+  isVideo,
   isImageGenerating,
   onImageClick,
 }: MessageRowProps) {
@@ -34,7 +34,6 @@ export function MessageRow({
   const startXRef = useRef<number | null>(null);
   const isDraggingRef = useRef(false);
 
-  // Only bot messages are swipeable
   const swipeable = !isUser && !!onReply;
 
   function startSwipe(clientX: number) {
@@ -51,9 +50,7 @@ export function MessageRow({
     if (delta > 0) {
       const clamped = Math.min(delta, SWIPE_THRESHOLD + 20);
       setTranslateX(clamped);
-      if (clamped >= SWIPE_THRESHOLD && !triggered) {
-        setTriggered(true);
-      }
+      if (clamped >= SWIPE_THRESHOLD && !triggered) setTriggered(true);
     }
   }
 
@@ -61,7 +58,6 @@ export function MessageRow({
     if (!swipeable || !isDraggingRef.current) return;
     isDraggingRef.current = false;
     startXRef.current = null;
-    // Snap back
     setTranslateX(0);
     if (triggered) {
       setTriggered(false);
@@ -69,34 +65,36 @@ export function MessageRow({
     }
   }
 
+  // USER message row — right-aligned, nearly full width, small left margin
   if (isUser) {
     return (
       <div
-        className="flex items-end justify-end gap-2.5 w-full"
+        className="flex items-end justify-end w-full"
         data-ocid="message-row-user"
       >
-        <ChatBubble
-          senderName={senderName}
-          text={text}
-          isUser
-          fontSize={fontSize}
-          replyTo={replyTo}
-        />
-        <UserAvatar />
+        {/* No avatar — removed */}
+        <div style={{ maxWidth: "calc(100% - 12px)", minWidth: 0 }}>
+          <ChatBubble
+            senderName={senderName}
+            text={text}
+            isUser
+            fontSize={fontSize}
+            replyTo={replyTo}
+          />
+        </div>
       </div>
     );
   }
 
+  // BOT message row — left-aligned, full width, no box constraints
   return (
     <div
-      className="flex items-end justify-start gap-2.5 w-full relative"
+      className="flex items-start justify-start w-full relative"
       data-ocid="message-row-bot"
     >
-      <BotAvatar />
-
-      {/* Swipe wrapper */}
+      {/* No avatar — removed */}
       <div
-        className="relative select-none"
+        className="relative select-none min-w-0 flex-1"
         style={{
           transform: `translateX(${translateX}px)`,
           transition: isDraggingRef.current
@@ -118,11 +116,12 @@ export function MessageRow({
           fontSize={fontSize}
           replyTo={replyTo}
           imageUrl={imageUrl}
+          isVideo={isVideo}
           isImageGenerating={isImageGenerating}
           onImageClick={onImageClick}
         />
 
-        {/* Reply icon — appears as bubble slides right */}
+        {/* Reply swipe indicator */}
         {swipeable && translateX > 10 && (
           <div
             className="absolute -right-9 top-1/2 -translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-full bg-[#EBEBF2]"

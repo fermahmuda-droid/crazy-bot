@@ -12,6 +12,7 @@ export interface ChatMessage {
   replyTo?: ReplyTo;
   imageUrl?: string;
   isImageGenerating?: boolean;
+  isVideo?: boolean;
 }
 
 export interface DeviceSettings {
@@ -36,4 +37,5 @@ export interface UserAnalyticsEntry {
   country: string;
   city: string;
   lastSeen: number;
+  deviceId?: string;
 }
